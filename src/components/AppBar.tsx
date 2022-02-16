@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
-        width: "50ch",
+        width: "25ch",
       },
     },
   },
@@ -65,7 +65,15 @@ interface Props {
 
 export default function AppBar(props: Props) {
   const { onPageChange } = props;
+  const [isSearchBarFocus, setIsSearchBarFocus] =
+    React.useState<boolean>(false);
 
+  const handleFocus = () => {
+    setIsSearchBarFocus(true);
+  };
+  const handleBlur = () => {
+    setIsSearchBarFocus(false);
+  };
   const handleClick = React.useCallback(
     (page: number) => {
       onPageChange(page);
@@ -73,8 +81,8 @@ export default function AppBar(props: Props) {
     [onPageChange]
   );
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <MUIAppBar sx={{ backgroundColor: "#242526" }} position="sticky">
+    <Box sx={{ flexGrow: 1, position: "sticky", top: 0 }}>
+      <MUIAppBar sx={{ backgroundColor: "#242526" }}>
         <Toolbar>
           <Box
             onClick={() => handleClick(0)}
@@ -90,15 +98,21 @@ export default function AppBar(props: Props) {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" />
+            <StyledInputBase
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              placeholder="Search…"
+            />
           </Search>
 
-          <StyledButton onClick={() => handleClick(1)}>
-            <Typography>Available Properties</Typography>
-          </StyledButton>
-          <StyledButton onClick={() => handleClick(2)}>
-            <Typography>FAQ</Typography>
-          </StyledButton>
+          <Box display={isSearchBarFocus ? "none" : "block"}>
+            <StyledButton onClick={() => handleClick(1)}>
+              <Typography>Available Properties</Typography>
+            </StyledButton>
+            <StyledButton onClick={() => handleClick(2)}>
+              <Typography>FAQ</Typography>
+            </StyledButton>
+          </Box>
         </Toolbar>
       </MUIAppBar>
     </Box>
