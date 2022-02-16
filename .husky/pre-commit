@@ -1,0 +1,19 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run lint
+
+if npm run format:check
+    then
+        exit 0
+else
+    while [ true ] ; do
+        printf "\n" && echo -n "Do you want to run prettier: " && read -n 1 -t 15 a < /dev/tty
+        if [ "$a" = "y" ]; then
+            npm run format
+            exit 0
+        else
+            exit 1
+        fi
+    done
+fi
