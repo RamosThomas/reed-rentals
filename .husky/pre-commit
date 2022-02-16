@@ -11,7 +11,8 @@ else
         printf "\n" && echo -n "Do you want to run prettier: " && read -n 1 -t 15 a < /dev/tty
         if [ "$a" = "y" ]; then
             npm run format
-            exit 0
+            echo -e "\nRe-run: `git add .` && `git commit`\n";
+            exit 1
         else
             exit 1
         fi
