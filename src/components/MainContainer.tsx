@@ -1,20 +1,26 @@
-import * as React from "react";
+import React from "react";
 
 import { Box } from "@mui/material";
 
 import useCheckMobileScreen from "../react/hooks/useCheckMobileScreen";
 
 import AppBar from "./AppBar";
+import MobileContainer from "./MobileContainer";
+import SearchPropertiesModal from "./SearchPropertiesModal";
 
 export default function MainContainer() {
   const [page, setPage] = React.useState<number>(0);
+  const [isModalOpen] = React.useState<boolean>(false);
   const isMobile: boolean = useCheckMobileScreen();
 
   return (
     <>
+      <SearchPropertiesModal open={isModalOpen} />
       <AppBar onPageChange={setPage} isMobile={isMobile} />
       <Box sx={{ pt: 10 }}>
-        {page === 0 ? (
+        {isMobile ? (
+          <MobileContainer />
+        ) : page === 0 ? (
           <div style={{ color: "white" }}>home</div>
         ) : page === 1 ? (
           <div style={{ color: "white" }}>Available Properties</div>

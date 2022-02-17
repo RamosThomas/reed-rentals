@@ -1,13 +1,17 @@
-import * as React from "react";
+import React from "react";
 
 import logo from "../img/logo.png";
 
 import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar as MUIAppBar,
   Box,
   Button,
+  IconButton,
   InputBase,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -27,7 +31,6 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
 }));
-
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -37,7 +40,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -53,10 +55,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
 const StyledButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1, 2, 1, 2),
   color: "#fff",
+}));
+const StyledMenu = styled(Menu)(() => ({
+  color: "inherit",
 }));
 
 interface Props {
@@ -66,8 +70,19 @@ interface Props {
 
 export default function AppBar(props: Props) {
   const { onPageChange, isMobile } = props;
-  const [isSearchBarFocus, setIsSearchBarFocus] =
-    React.useState<boolean>(false);
+  const [, setIsSearchBarFocus] = React.useState<boolean>(false);
+  const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
+    null
+  );
+  const open = Boolean(anchorElement);
+  const handleDropDownForMobileView = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setAnchorElement((prev) => (prev === null ? event.currentTarget : null));
+  };
+  const handleClose = () => {
+    setAnchorElement(null);
+  };
 
   const handleFocus = () => {
     setIsSearchBarFocus(true);
@@ -75,18 +90,51 @@ export default function AppBar(props: Props) {
   const handleBlur = () => {
     setIsSearchBarFocus(false);
   };
-  const handleClick = React.useCallback(
+  const handleHomeClick = React.useCallback(
     (page: number) => {
       onPageChange(page);
     },
     [onPageChange]
   );
+
   return (
-    <Box sx={{ flexGrow: 1, position: "sticky", top: 0 }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        position: "sticky",
+        top: 0,
+      }}
+    >
       <MUIAppBar sx={{ backgroundColor: "#242526" }}>
         <Toolbar>
+          {isMobile ? (
+            <IconButton
+              onClick={handleDropDownForMobileView}
+              size="large"
+              edge="start"
+              color="inherit"
+            >
+              <StyledMenu
+                anchorEl={anchorElement}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem>
+                  <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+                    Available Properties
+                  </Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+                    FAQ
+                  </Typography>
+                </MenuItem>
+              </StyledMenu>
+              <MenuIcon />
+            </IconButton>
+          ) : null}
           <Box
-            onClick={() => handleClick(0)}
+            onClick={() => handleHomeClick(0)}
             sx={{ cursor: "pointer", width: "300px", mr: 2 }}
           >
             <img
@@ -106,11 +154,11 @@ export default function AppBar(props: Props) {
             />
           </Search>
 
-          <Box display={isSearchBarFocus || isMobile ? "none" : "flex"}>
-            <StyledButton onClick={() => handleClick(1)}>
+          <Box display={isMobile ? "none" : "flex"}>
+            <StyledButton onClick={() => handleHomeClick(1)}>
               <Typography>Available Properties</Typography>
             </StyledButton>
-            <StyledButton onClick={() => handleClick(2)}>
+            <StyledButton onClick={() => handleHomeClick(2)}>
               <Typography>FAQ</Typography>
             </StyledButton>
           </Box>
