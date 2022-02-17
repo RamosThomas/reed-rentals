@@ -10,9 +10,7 @@ else
     while [ true ] ; do
         printf "\n" && echo -n "Do you want to run prettier: " && read -n 1 -t 15 a < /dev/tty
         if [ "$a" = "y" ]; then
-            npm run format
-            echo -e "\nCommit was re-run successfully\nRun 'git push' to push work.\n";
-            exit 0
+            npm run format && git add ./ && git commit && exit 0
         else
             exit 1
         fi
