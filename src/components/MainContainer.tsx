@@ -2,14 +2,18 @@ import * as React from "react";
 
 import { Box } from "@mui/material";
 
+import useCheckMobileScreen from "../react/hooks/useCheckMobileScreen";
+
 import AppBar from "./AppBar";
 
 export default function MainContainer() {
   const [page, setPage] = React.useState<number>(0);
+  const isMobile: boolean = useCheckMobileScreen();
+
   return (
     <>
-      <AppBar onPageChange={setPage} />
-      <Box sx={{ pt: 7 }}>
+      <AppBar onPageChange={setPage} isMobile={isMobile} />
+      <Box sx={{ pt: 10 }}>
         {page === 0 ? (
           <div style={{ color: "white" }}>home</div>
         ) : page === 1 ? (

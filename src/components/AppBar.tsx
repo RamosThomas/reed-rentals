@@ -61,10 +61,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 interface Props {
   onPageChange: React.Dispatch<React.SetStateAction<number>>;
+  isMobile: boolean;
 }
 
 export default function AppBar(props: Props) {
-  const { onPageChange } = props;
+  const { onPageChange, isMobile } = props;
   const [isSearchBarFocus, setIsSearchBarFocus] =
     React.useState<boolean>(false);
 
@@ -105,7 +106,7 @@ export default function AppBar(props: Props) {
             />
           </Search>
 
-          <Box display={isSearchBarFocus ? "none" : "block"}>
+          <Box display={isSearchBarFocus || isMobile ? "none" : "flex"}>
             <StyledButton onClick={() => handleClick(1)}>
               <Typography>Available Properties</Typography>
             </StyledButton>
