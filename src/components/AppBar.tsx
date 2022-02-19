@@ -19,13 +19,15 @@ import { styled, alpha } from "@mui/system";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
+  flexGrow: 1,
+  display: "flex",
+  cursor: "text",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha("#fff", 0.15),
   "&:hover": {
     backgroundColor: alpha("#fff", 0.25),
   },
   marginLeft: 0,
-  width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
@@ -47,15 +49,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: "0.25s",
     width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "25ch",
-      },
-    },
   },
 }));
 const StyledButton = styled(Button)(({ theme }) => ({
+  flexGrow: 1,
   padding: theme.spacing(1, 2, 1, 2),
   color: "#fff",
 }));
@@ -100,7 +97,7 @@ export default function AppBar(props: Props) {
   return (
     <Box
       sx={{
-        flexGrow: 1,
+        display: "flex",
         position: "sticky",
         top: 0,
       }}
@@ -135,7 +132,7 @@ export default function AppBar(props: Props) {
           ) : null}
           <Box
             onClick={() => handleHomeClick(0)}
-            sx={{ cursor: "pointer", width: "300px", mr: 2 }}
+            sx={{ cursor: "pointer", width: "250px", mr: 2 }}
           >
             <img
               style={{ maxWidth: "100%", maxHeight: "100%" }}
@@ -143,11 +140,14 @@ export default function AppBar(props: Props) {
               alt="logo"
             />
           </Box>
-          <Search>
+          <Search
+            onClick={() => document.getElementById("SearchInput")?.focus()}
+          >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              id="SearchInput"
               onFocus={handleFocus}
               onBlur={handleBlur}
               placeholder="Search…"
