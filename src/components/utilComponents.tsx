@@ -3,18 +3,21 @@ import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import {
-  alpha,
   Box,
   IconButton,
   Slider as MuiSlider,
   Typography,
 } from "@mui/material";
-import { blue } from "@mui/material/colors";
+import { styled, alpha } from "@mui/system";
 
 interface Props {
   defaultStartValue?: string | number | undefined;
   defaultEndValue?: string | number | undefined;
 }
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.main,
+}));
 
 function Slider(props: Props) {
   const [value, setValue] = React.useState<number[]>([
@@ -53,9 +56,9 @@ function Increment(props: Props) {
       <IconButton onClick={() => handleChange(-1)}>
         <RemoveIcon sx={{ color: alpha("#fff", 0.5) }} />
       </IconButton>
-      <Typography sx={{ color: blue[500], my: -3 }}>
+      <StyledTypography sx={{ my: -3 }}>
         <b>{num}</b>
-      </Typography>
+      </StyledTypography>
       <IconButton onClick={() => handleChange(1)}>
         <AddIcon sx={{ color: alpha("#fff", 0.5) }} />
       </IconButton>

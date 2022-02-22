@@ -1,5 +1,9 @@
 import React from "react";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import { blue } from "@mui/material/colors";
+
 import { Box, Paper, Typography } from "@mui/material";
 
 import useCheckMobileScreen from "../react/hooks/useCheckMobileScreen";
@@ -7,6 +11,14 @@ import useCheckMobileScreen from "../react/hooks/useCheckMobileScreen";
 import AppBar from "./AppBar";
 import MobileContainer from "./MobileContainer";
 import SearchPropertiesModal from "./SearchPropertiesModal";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: blue[500],
+    },
+  },
+});
 
 export default function MainContainer() {
   const [page, setPage] = React.useState<number>(0);
@@ -18,7 +30,7 @@ export default function MainContainer() {
   }, [isModalOpen]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <SearchPropertiesModal open={isModalOpen} onClose={setIsModalOpen} />
       <AppBar
         onPageChange={setPage}
@@ -166,6 +178,6 @@ export default function MainContainer() {
           </div>
         )}
       </Box>
-    </>
+    </ThemeProvider>
   );
 }

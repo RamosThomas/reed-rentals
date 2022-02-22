@@ -3,7 +3,7 @@ import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Dialog, Grid, IconButton, Typography } from "@mui/material";
 
-import { Slider, Increment } from "./SearchPropertyComponents";
+import { Slider, Increment } from "./utilComponents";
 
 interface Props {
   open: boolean;
