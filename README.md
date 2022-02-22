@@ -1,3 +1,11 @@
+TODO:
+
+- Complete UI based on actual page: http://reedcollegerentals.com/
+- Mock data in json file for populating cards to represent available properties
+- Mobile refactoring of desktop components
+- Context for application
+- Email Norene to make her aware of this project
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
