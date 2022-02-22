@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: "0.25s",
-    width: "100%",
+    width: 0,
   },
 }));
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -62,15 +62,15 @@ const StyledMenu = styled(Menu)(() => ({
 
 interface Props {
   onPageChange: React.Dispatch<React.SetStateAction<number>>;
+  onSearchClick: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile: boolean;
 }
 
 export default function AppBar(props: Props) {
-  const { onPageChange, isMobile } = props;
-  const [, setIsSearchBarFocus] = React.useState<boolean>(false);
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
     null
   );
+
   const open = Boolean(anchorElement);
   const handleDropDownForMobileView = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -80,31 +80,20 @@ export default function AppBar(props: Props) {
   const handleClose = () => {
     setAnchorElement(null);
   };
-
-  const handleFocus = () => {
-    setIsSearchBarFocus(true);
+  const handleHomeClick = (page: number) => {
+    props.onPageChange(page);
   };
-  const handleBlur = () => {
-    setIsSearchBarFocus(false);
-  };
-  const handleHomeClick = React.useCallback(
-    (page: number) => {
-      onPageChange(page);
-    },
-    [onPageChange]
-  );
 
   return (
     <Box
       sx={{
-        display: "flex",
         position: "sticky",
         top: 0,
       }}
     >
-      <MUIAppBar sx={{ backgroundColor: "#242526" }}>
+      <MUIAppBar id="appbar" sx={{ backgroundColor: "#242526" }}>
         <Toolbar>
-          {isMobile ? (
+          {props.isMobile ? (
             <IconButton
               onClick={handleDropDownForMobileView}
               size="large"
@@ -141,20 +130,19 @@ export default function AppBar(props: Props) {
             />
           </Box>
           <Search
-            onClick={() => document.getElementById("SearchInput")?.focus()}
+            onClick={() => {
+              props.onSearchClick(true);
+            }}
+            sx={{ alignItems: "center" }}
           >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              id="SearchInput"
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              placeholder="Search…"
-            />
+            <StyledInputBase />
+            <Typography>Search…</Typography>
           </Search>
 
-          <Box display={isMobile ? "none" : "flex"}>
+          <Box display={props.isMobile ? "none" : "flex"}>
             <StyledButton onClick={() => handleHomeClick(1)}>
               <Typography>Available Properties</Typography>
             </StyledButton>

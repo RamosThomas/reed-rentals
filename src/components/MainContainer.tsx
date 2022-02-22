@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 
 import useCheckMobileScreen from "../react/hooks/useCheckMobileScreen";
 
@@ -10,18 +10,50 @@ import SearchPropertiesModal from "./SearchPropertiesModal";
 
 export default function MainContainer() {
   const [page, setPage] = React.useState<number>(0);
-  const [isModalOpen] = React.useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const isMobile: boolean = useCheckMobileScreen();
+
+  React.useEffect(() => {
+    console.log("open", isModalOpen);
+  }, [isModalOpen]);
 
   return (
     <>
-      <SearchPropertiesModal open={isModalOpen} />
-      <AppBar onPageChange={setPage} isMobile={isMobile} />
+      <SearchPropertiesModal open={isModalOpen} onClose={setIsModalOpen} />
+      <AppBar
+        onPageChange={setPage}
+        onSearchClick={setIsModalOpen}
+        isMobile={isMobile}
+      />
       <Box sx={{ pt: 10 }}>
         {isMobile ? (
           <MobileContainer />
         ) : page === 0 ? (
-          <div style={{ color: "white" }}>home</div>
+          <Box sx={{ flexGrow: 1 }}>
+            <Paper
+              sx={{ color: "#fff", bgcolor: "#242526", mx: 20, px: 10, py: 5 }}
+            >
+              <Typography variant="h5">Home</Typography>
+              <p>
+                THANK YOU for checking out our web-site. If you are interested
+                in what we will have available next year, you can get in touch
+                with us to leave your name on our waiting list.We have very nice
+                houses and keep them in great condition. For that reason we DO
+                NOT accept pets and our housing is NO SMOKING. They get leased
+                quickly. If you want to see any of them call me. IF YOU DON’T
+                SEE WHAT YOU ARE LOOKING FOR RIGHT NOW, BE SURE TO CHECK BACK
+                there may be a few last minute changes. You can leave your name
+                on our waiting list if you want for opportunities. Leave me an
+                email or call us and we will notify you when we have something
+                the size you are looking for. We, Bob and Norene, own and
+                personally manage all our units. We live in Greeley and are here
+                when you need us. We have excellent units and reasonable rents.
+                We would be happy to find you a home for the school year. PLEASE
+                be aware that we DO NOT accept pets. Contact Norene at
+                970-590-2883.
+              </p>
+            </Paper>
+          </Box>
         ) : page === 1 ? (
           <div style={{ color: "white" }}>Available Properties</div>
         ) : (
