@@ -4,7 +4,11 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import {
   Box,
+  FormControl,
   IconButton,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Slider as MuiSlider,
   Typography,
 } from "@mui/material";
@@ -13,10 +17,19 @@ import { styled, alpha } from "@mui/system";
 interface Props {
   defaultStartValue?: string | number | undefined;
   defaultEndValue?: string | number | undefined;
+  potentialValues?: string[] | undefined;
 }
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
+  my: -3,
   color: theme.palette.primary.main,
+}));
+const StyledDropDown = styled(Select)(({ theme }) => ({
+  py: 2,
+  color: theme.palette.primary.main,
+}));
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+  color: theme.palette.secondary.main,
 }));
 
 function Slider(props: Props) {
@@ -56,7 +69,7 @@ function Increment(props: Props) {
       <IconButton onClick={() => handleChange(-1)}>
         <RemoveIcon sx={{ color: alpha("#fff", 0.5) }} />
       </IconButton>
-      <StyledTypography sx={{ my: -3 }}>
+      <StyledTypography>
         <b>{num}</b>
       </StyledTypography>
       <IconButton onClick={() => handleChange(1)}>
@@ -66,8 +79,37 @@ function Increment(props: Props) {
   );
 }
 
+function DropDown(props: Props) {
+  const [val, setVal] = React.useState<string>("");
+
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
+    setVal(event.target.value as string);
+  };
+  return (
+    <Box>
+      <FormControl fullWidth>
+        <StyledDropDown
+          value={val}
+          onChange={handleChange}
+          sx={{
+            "& input": {
+              borderColor: "white",
+            },
+          }}
+        >
+          {props.potentialValues?.map((potentialValue) => (
+            <StyledMenuItem key={potentialValue} value={potentialValue}>
+              {potentialValue}
+            </StyledMenuItem>
+          ))}
+        </StyledDropDown>
+      </FormControl>
+    </Box>
+  );
+}
+
 function Radio(_props: Props) {
   return null;
 }
 
-export { Slider, Increment, Radio };
+export { DropDown, Slider, Increment, Radio };

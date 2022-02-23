@@ -1,9 +1,16 @@
 import React from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Dialog, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
-import { Slider, Increment } from "./utilComponents";
+import { DropDown, Slider, Increment } from "./utilComponents";
 
 interface Props {
   open: boolean;
@@ -27,14 +34,20 @@ export default function SearchPropertiesModal(props: Props) {
         justifyContent: "center",
       }}
     >
-      <Box sx={{ py: 5 }}>
+      <Box>
+        <IconButton
+          onClick={handleCloseModal}
+          sx={{ position: "sticky", right: 0, top: 0 }}
+        >
+          <CloseIcon sx={{ color: "#fff" }} />
+        </IconButton>
         <Grid
           container
           direction="column"
           justifyContent="space-evenly"
           alignItems="center"
         >
-          <Grid item width="300px">
+          <Grid item minWidth="300px">
             <Typography textAlign="center" sx={{ color: "#fff" }} variant="h5">
               Rent
             </Typography>
@@ -53,18 +66,30 @@ export default function SearchPropertiesModal(props: Props) {
             <Increment defaultStartValue={1} />
           </Grid>
           <Grid item>
-            <Typography textAlign="center" sx={{ color: "#fff" }} variant="h5">
+            <Typography
+              textAlign="center"
+              sx={{ color: "#fff", pb: 3 }}
+              variant="h5"
+            >
               Property Type
             </Typography>
+            <DropDown
+              potentialValues={[
+                "Any",
+                "Single Family",
+                "In House Apartment",
+                "Apartment",
+                "House",
+                "Condo",
+              ]}
+            ></DropDown>
+          </Grid>
+          <Grid item>
+            <Button sx={{ my: 5 }} variant="contained">
+              Search
+            </Button>
           </Grid>
         </Grid>
-
-        <IconButton
-          onClick={handleCloseModal}
-          sx={{ position: "absolute", right: 0, top: 0 }}
-        >
-          <CloseIcon sx={{ color: "#fff" }} />
-        </IconButton>
       </Box>
     </Dialog>
   );
