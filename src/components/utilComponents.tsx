@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import {
   Box,
+  Chip,
   FormControl,
   IconButton,
   MenuItem,
@@ -13,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { styled, alpha } from "@mui/system";
+import { blue } from "@mui/material/colors";
 
 interface Props {
   defaultStartValue?: string | number | undefined;
@@ -22,10 +24,6 @@ interface Props {
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   my: -3,
-  color: theme.palette.primary.main,
-}));
-const StyledDropDown = styled(Select)(({ theme }) => ({
-  py: 2,
   color: theme.palette.primary.main,
 }));
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
@@ -80,29 +78,47 @@ function Increment(props: Props) {
 }
 
 function DropDown(props: Props) {
-  const [val, setVal] = React.useState<string>("");
+  const [val, setVal] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
-    setVal(event.target.value as string);
+  const handleChange = (event: SelectChangeEvent<typeof val>) => {
+    const {
+      target: { value },
+    } = event;
+    setVal(typeof value === "string" ? value.split(",") : value);
   };
   return (
     <Box>
       <FormControl fullWidth>
-        <StyledDropDown
+        <Select
           value={val}
+          multiple
           onChange={handleChange}
           sx={{
+            color: "#fff",
             "& input": {
               borderColor: "white",
             },
           }}
+          renderValue={(selected) => (
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.5,
+              }}
+            >
+              {selected.map((value) => (
+                <Chip key={value} label={value} sx={{ bgcolor: blue[500] }} />
+              ))}
+            </Box>
+          )}
         >
           {props.potentialValues?.map((potentialValue) => (
             <StyledMenuItem key={potentialValue} value={potentialValue}>
               {potentialValue}
             </StyledMenuItem>
           ))}
-        </StyledDropDown>
+        </Select>
       </FormControl>
     </Box>
   );
