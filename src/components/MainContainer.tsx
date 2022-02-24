@@ -56,7 +56,7 @@ export default function MainContainer() {
           height: "98vh",
           overflowY: "hidden",
           opacity: 0.25,
-          position: "absolute",
+          position: "fixed",
           zIndex: 1,
         }}
       >
