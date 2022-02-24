@@ -89,9 +89,10 @@ export default function AppBar(props: Props) {
       sx={{
         position: "sticky",
         top: 0,
+        zIndex: 5,
       }}
     >
-      <MUIAppBar id="appbar" sx={{ backgroundColor: "#242526" }}>
+      <MUIAppBar id="appbar" sx={{ backgroundColor: "#24252e" }}>
         <Toolbar>
           {props.isMobile ? (
             <IconButton

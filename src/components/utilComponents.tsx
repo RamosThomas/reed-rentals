@@ -1,13 +1,16 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
   Chip,
   FormControl,
+  Grid,
   IconButton,
   MenuItem,
+  Rating as MuiRating,
   Select,
   SelectChangeEvent,
   Slider as MuiSlider,
@@ -15,11 +18,13 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/system";
 import { blue } from "@mui/material/colors";
+// import { OverridableComponent } from "@mui/types";
 
 interface Props {
-  defaultStartValue?: string | number | undefined;
+  defaultStartValue?: string | number | any | undefined;
   defaultEndValue?: string | number | undefined;
   potentialValues?: string[] | undefined;
+  options?: any;
 }
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
@@ -124,8 +129,117 @@ function DropDown(props: Props) {
   );
 }
 
+function resizableBox(props: {
+  children: ReactElement<any, any> | ReactElement<any, any>[];
+  keyID: string;
+}) {
+  // Mainly for the purpose of textboxes that need to fit a certain maxHeight
+
+  const getHeight = React.useCallback(() => {
+    const element = document.getElementById(`resizable-${props.keyID}`);
+    if (element) {
+      return element.clientHeight > 100;
+    }
+    return false;
+  }, []);
+
+  const overFlow: boolean = getHeight();
+  const styling: { color: string } = { color: "#fff" };
+
+  const boxElement: ReactElement<any, any> = (
+    <Box
+      id={`resizable-${props.keyID}`}
+      sx={
+        overFlow
+          ? { maxHeight: 100, overflowY: "hidden", ...styling }
+          : { ...styling }
+      }
+    >
+      {props.children}
+    </Box>
+  );
+
+  return (
+    <>
+      {boxElement}
+      {overFlow ? (
+        <Typography
+          key="more"
+          textAlign="right"
+          onClick={() => console.log("test")}
+          sx={{ color: blue[500], "&:hover": { cursor: "pointer" } }}
+        >
+          ...More
+        </Typography>
+      ) : null}
+    </>
+  );
+}
+
+function Rating(props: Props) {
+  const [rating, setRating] = React.useState<number | null>(
+    props.defaultStartValue
+  );
+
+  return (
+    <Box
+      sx={{ display: "flex", "& .MuiTypography-root": { px: 3 } }}
+      alignItems="center"
+    >
+      <MuiRating
+        sx={{
+          "& .MuiRating-icon": {
+            color: blue[500],
+          },
+        }}
+        precision={0.5}
+        value={rating}
+        readOnly={props.options.readOnly ? props.options.readOnly : false}
+        onChange={(_event, newValue: number | null) => {
+          setRating(newValue);
+        }}
+      />
+      {props.options.date ? (
+        <Typography variant="overline" sx={{ color: alpha("#fff", 0.5) }}>
+          {props.options.date}
+        </Typography>
+      ) : null}
+    </Box>
+  );
+}
+
+function UserRating(props: Props) {
+  const { rating, name, description } = props.defaultStartValue;
+  return (
+    <Box sx={{ display: "flex", py: 2 }} alignItems="flex-start">
+      <AccountCircleIcon fontSize="large" sx={{ pr: 2 }} />
+      <Grid container spacing={3}>
+        <Grid item>
+          <Grid container direction="column" spacing={1}>
+            <Grid item>{name}</Grid>
+            <Grid item>
+              <Rating
+                defaultStartValue={rating}
+                options={{ readOnly: true, date: "Last week" }}
+              />
+            </Grid>
+            <Grid item>
+              {resizableBox({
+                children: (
+                  <Typography key="description">{description}</Typography>
+                ),
+                keyID: description,
+              })}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+
 function Radio(_props: Props) {
   return null;
 }
 
-export { DropDown, Slider, Increment, Radio };
+export { DropDown, Slider, Increment, Radio, Rating, UserRating };

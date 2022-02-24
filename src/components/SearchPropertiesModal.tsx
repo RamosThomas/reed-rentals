@@ -24,7 +24,7 @@ export default function SearchPropertiesModal(props: Props) {
 
   return (
     <Dialog
-      PaperProps={{ sx: { backgroundColor: "#242526" } }}
+      PaperProps={{ sx: { backgroundColor: "#24252e" } }}
       open={props.open}
       fullWidth
       onBackdropClick={handleCloseModal}
