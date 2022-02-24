@@ -2,7 +2,7 @@ import React from "react";
 
 import { ratingData } from "./demoData";
 
-import { Box, Grid, Button, Paper, Typography } from "@mui/material";
+import { Box, Grid, Divider, Button, Paper, Typography } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
 import { UserRating } from "./utilComponents";
@@ -42,8 +42,8 @@ export default function Home() {
                 color: "#fff",
                 bgcolor: "#24252e",
                 maxWidth: 500,
-                py: 5,
-                px: 10,
+                py: 3,
+                px: 5,
               }}
             >
               <Box>
@@ -57,9 +57,7 @@ export default function Home() {
                   Choosing a home is serious business, and can be more stressful
                   than school! Take the time to view our tenant reviews of
                   <b style={{ color: blue[500] }}> Reed Rentals</b>&trade;
-                  below. If you&apos;re a previous tenant and would like to show
-                  support, or give insight to living in our homes, feel free to
-                  leave a review.
+                  below.
                 </Typography>
                 <br />
                 <Typography>
@@ -86,7 +84,8 @@ export default function Home() {
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{ color: "#fff", my: 5, px: 10 }}>
+      <Divider sx={{ bgcolor: "#fff", my: 5 }} />
+      <Box sx={{ color: "#fff", my: 2, px: 5 }}>
         {ratingData.map(
           (params: { rating: number; name: string; description: string }) => (
             <UserRating key={params.description} defaultStartValue={params} />

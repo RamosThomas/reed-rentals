@@ -53,7 +53,7 @@ export default function MainContainer() {
         sx={{
           top: 10,
           width: "50%",
-          height: "98vh",
+          height: "100vh",
           overflowY: "hidden",
           opacity: 0.25,
           position: "fixed",
@@ -79,7 +79,22 @@ export default function MainContainer() {
         onSearchClick={setIsModalOpen}
         isMobile={isMobile}
       />
-      <Box sx={{ pt: 10 }}>{isMobile ? <Home /> : <Home />}</Box>
+      <Box sx={{ pt: 10 }}>
+        <Home />
+      </Box>
+      <Box
+        sx={{
+          position: "relative",
+          // py: 1,
+          width: "100%",
+          bottom: "0px",
+          // backgroundColor: "#000",
+          color: "#fff",
+          zIndex: 50,
+        }}
+      >
+        Footer
+      </Box>
     </ThemeProvider>
   );
 }

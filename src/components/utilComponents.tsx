@@ -1,10 +1,11 @@
-import React, { ReactElement } from "react";
+import React from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
+  Collapse,
   Chip,
   FormControl,
   Grid,
@@ -129,53 +130,6 @@ function DropDown(props: Props) {
   );
 }
 
-function resizableBox(props: {
-  children: ReactElement<any, any> | ReactElement<any, any>[];
-  keyID: string;
-}) {
-  // Mainly for the purpose of textboxes that need to fit a certain maxHeight
-
-  const getHeight = React.useCallback(() => {
-    const element = document.getElementById(`resizable-${props.keyID}`);
-    if (element) {
-      return element.clientHeight > 100;
-    }
-    return false;
-  }, []);
-
-  const overFlow: boolean = getHeight();
-  const styling: { color: string } = { color: "#fff" };
-
-  const boxElement: ReactElement<any, any> = (
-    <Box
-      id={`resizable-${props.keyID}`}
-      sx={
-        overFlow
-          ? { maxHeight: 100, overflowY: "hidden", ...styling }
-          : { ...styling }
-      }
-    >
-      {props.children}
-    </Box>
-  );
-
-  return (
-    <>
-      {boxElement}
-      {overFlow ? (
-        <Typography
-          key="more"
-          textAlign="right"
-          onClick={() => console.log("test")}
-          sx={{ color: blue[500], "&:hover": { cursor: "pointer" } }}
-        >
-          ...More
-        </Typography>
-      ) : null}
-    </>
-  );
-}
-
 function Rating(props: Props) {
   const [rating, setRating] = React.useState<number | null>(
     props.defaultStartValue
@@ -210,6 +164,13 @@ function Rating(props: Props) {
 
 function UserRating(props: Props) {
   const { rating, name, description } = props.defaultStartValue;
+  const [expanded, setExpanded] = React.useState<boolean>(false);
+
+  const handleExpand = React.useCallback(
+    () => setExpanded((prev) => !prev),
+    []
+  );
+
   return (
     <Box sx={{ display: "flex", py: 2 }} alignItems="flex-start">
       <AccountCircleIcon fontSize="large" sx={{ pr: 2 }} />
@@ -224,12 +185,18 @@ function UserRating(props: Props) {
               />
             </Grid>
             <Grid item>
-              {resizableBox({
-                children: (
+              <Box>
+                <Collapse in={expanded} collapsedSize="50px">
                   <Typography key="description">{description}</Typography>
-                ),
-                keyID: description,
-              })}
+                </Collapse>
+                <Typography
+                  textAlign="right"
+                  onClick={handleExpand}
+                  sx={{ color: blue[500], cursor: "pointer" }}
+                >
+                  {expanded ? "...Less" : "...More"}
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
         </Grid>
