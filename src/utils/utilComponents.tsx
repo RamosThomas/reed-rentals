@@ -93,21 +93,25 @@ function DropDown(props: Props) {
     setVal(typeof value === "string" ? value.split(",") : value);
   };
   return (
-    <Box>
+    <Box
+      sx={{
+        "& .MuiSvgIcon-root": {
+          color: alpha("#fff", 0.5),
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: alpha("#fff", 0.5),
+        },
+      }}
+    >
       <FormControl fullWidth>
         <Select
           value={val}
           multiple
           onChange={handleChange}
-          sx={{
-            color: "#fff",
-            "& input": {
-              borderColor: "white",
-            },
-          }}
           renderValue={(selected) => (
             <Box
               sx={{
+                borderColor: "#fff",
                 display: "flex",
                 flexWrap: "wrap",
                 gap: 0.5,

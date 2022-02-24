@@ -56,12 +56,9 @@ const StyledButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1, 2, 1, 2),
   color: "#fff",
 }));
-const StyledMenu = styled(Menu)(() => ({
-  color: "inherit",
-}));
 
 interface Props {
-  onPageChange: React.Dispatch<React.SetStateAction<number>>;
+  onPageChange: React.Dispatch<React.SetStateAction<string>>;
   onSearchClick: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile: boolean;
 }
@@ -80,7 +77,7 @@ export default function AppBar(props: Props) {
   const handleClose = () => {
     setAnchorElement(null);
   };
-  const handleHomeClick = (page: number) => {
+  const handlePageChange = (page: string) => {
     props.onPageChange(page);
   };
 
@@ -101,10 +98,18 @@ export default function AppBar(props: Props) {
               edge="start"
               color="inherit"
             >
-              <StyledMenu
+              <Menu
                 anchorEl={anchorElement}
                 open={open}
                 onClose={handleClose}
+                sx={{
+                  "& .MuiPaper-root": {
+                    bgcolor: "#24252e",
+                    width: "100vw",
+                    border: "solid 1px #000",
+                  },
+                  color: "inherit",
+                }}
               >
                 <MenuItem>
                   <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
@@ -116,12 +121,12 @@ export default function AppBar(props: Props) {
                     FAQ
                   </Typography>
                 </MenuItem>
-              </StyledMenu>
+              </Menu>
               <MenuIcon />
             </IconButton>
           ) : null}
           <Box
-            onClick={() => handleHomeClick(0)}
+            onClick={() => handlePageChange("home")}
             sx={{ cursor: "pointer", width: "250px", mr: 2 }}
           >
             <img
@@ -144,10 +149,10 @@ export default function AppBar(props: Props) {
           </Search>
 
           <Box display={props.isMobile ? "none" : "flex"}>
-            <StyledButton onClick={() => handleHomeClick(1)}>
+            <StyledButton onClick={() => handlePageChange("properties")}>
               <Typography>Available Properties</Typography>
             </StyledButton>
-            <StyledButton onClick={() => handleHomeClick(2)}>
+            <StyledButton onClick={() => handlePageChange("faq")}>
               <Typography>FAQ</Typography>
             </StyledButton>
           </Box>

@@ -1,11 +1,11 @@
 import React from "react";
 
-import { ratingData } from "./demoData";
+import { ratingData } from "../utils/demoData";
 
 import { Box, Grid, Divider, Button, Paper, Typography } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
-import { UserRating } from "./utilComponents";
+import { UserRating } from "../utils/utilComponents";
 import { blue } from "@mui/material/colors";
 
 export default function Home() {

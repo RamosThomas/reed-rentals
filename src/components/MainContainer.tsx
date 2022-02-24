@@ -5,14 +5,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { blue } from "@mui/material/colors";
 
 import { Box, ImageList, ImageListItem } from "@mui/material";
-import { itemData } from "./demoData";
+import { itemData } from "../utils/demoData";
 
 import useCheckMobileScreen from "../react/hooks/useCheckMobileScreen";
 
 import AppBar from "./AppBar";
-// import MobileContainer from "./MobileContainer";
-import SearchPropertiesModal from "./SearchPropertiesModal";
+import AvailableProperties from "./AvailableProperties";
 import Home from "./Home";
+import SearchPropertiesModal from "./SearchPropertiesModal";
 
 const theme = createTheme({
   palette: {
@@ -43,7 +43,7 @@ const theme = createTheme({
 });
 
 export default function MainContainer() {
-  const [, setPage] = React.useState<number>(0);
+  const [page, setPage] = React.useState<string>("home");
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const isMobile: boolean = useCheckMobileScreen();
 
@@ -57,7 +57,7 @@ export default function MainContainer() {
           overflowY: "hidden",
           opacity: 0.25,
           position: "fixed",
-          zIndex: 1,
+          zIndex: 0,
         }}
       >
         <ImageList variant="masonry" cols={3} gap={8}>
@@ -79,8 +79,13 @@ export default function MainContainer() {
         onSearchClick={setIsModalOpen}
         isMobile={isMobile}
       />
-      <Box sx={{ pt: 10 }}>
-        <Home />
+      <Box sx={{ zIndex: 1, pt: 10 }}>
+        {
+          {
+            home: <Home />,
+            properties: <AvailableProperties />,
+          }[page]
+        }
       </Box>
       <Box
         sx={{

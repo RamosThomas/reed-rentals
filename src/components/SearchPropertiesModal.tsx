@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DropDown, Slider, Increment } from "./utilComponents";
+import { DropDown, Slider, Increment } from "../utils/utilComponents";
 
 interface Props {
   open: boolean;
