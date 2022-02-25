@@ -69,17 +69,18 @@ export default function AppBar(props: Props) {
   );
 
   const open = Boolean(anchorElement);
-  const handleDropDownForMobileView = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    setAnchorElement((prev) => (prev === null ? event.currentTarget : null));
-  };
-  const handleClose = () => {
+  const handleDropDownForMobileView = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorElement((prev) => (prev === null ? event.currentTarget : null));
+    },
+    []
+  );
+  const handleClose = React.useCallback(() => {
     setAnchorElement(null);
-  };
-  const handlePageChange = (page: string) => {
+  }, []);
+  const handlePageChange = React.useCallback((page: string) => {
     props.onPageChange(page);
-  };
+  }, []);
 
   return (
     <Box

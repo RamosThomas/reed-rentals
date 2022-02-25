@@ -13,6 +13,9 @@ type AvailablePropertyCardDataType = {
   title: string;
   address?: string;
   availability: "available" | "undetermined" | "unavailable";
+  price: string;
+  beds: number;
+  bath: number;
 };
 
 type AvailablePropertyCardType = {

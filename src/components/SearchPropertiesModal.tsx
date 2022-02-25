@@ -18,9 +18,9 @@ interface Props {
 }
 
 export default function SearchPropertiesModal(props: Props) {
-  const handleCloseModal = () => {
+  const handleCloseModal = React.useCallback(() => {
     props.onClose(false);
-  };
+  }, []);
 
   return (
     <Dialog
@@ -35,10 +35,7 @@ export default function SearchPropertiesModal(props: Props) {
       }}
     >
       <Box>
-        <IconButton
-          onClick={handleCloseModal}
-          sx={{ position: "sticky", right: 0, top: 0 }}
-        >
+        <IconButton onClick={handleCloseModal} sx={{ position: "fixed" }}>
           <CloseIcon sx={{ color: "#fff" }} />
         </IconButton>
         <Grid
@@ -46,12 +43,32 @@ export default function SearchPropertiesModal(props: Props) {
           direction="column"
           justifyContent="space-evenly"
           alignItems="center"
+          sx={{ my: 5 }}
         >
           <Grid item minWidth="300px">
             <Typography textAlign="center" sx={{ color: "#fff" }} variant="h5">
               Rent
             </Typography>
             <Slider defaultStartValue={500} defaultEndValue={3200} />
+          </Grid>
+          <Grid item sx={{ mb: 5 }}>
+            <Typography
+              textAlign="center"
+              sx={{ color: "#fff", mb: 1 }}
+              variant="h5"
+            >
+              Property Type
+            </Typography>
+            <DropDown
+              potentialValues={[
+                "Any",
+                "Single Family",
+                "In House Apartment",
+                "Apartment",
+                "House",
+                "Condo",
+              ]}
+            />
           </Grid>
           <Grid item>
             <Typography textAlign="center" sx={{ color: "#fff" }} variant="h5">
@@ -66,26 +83,7 @@ export default function SearchPropertiesModal(props: Props) {
             <Increment defaultStartValue={1} />
           </Grid>
           <Grid item>
-            <Typography
-              textAlign="center"
-              sx={{ color: "#fff", pb: 3 }}
-              variant="h5"
-            >
-              Property Type
-            </Typography>
-            <DropDown
-              potentialValues={[
-                "Any",
-                "Single Family",
-                "In House Apartment",
-                "Apartment",
-                "House",
-                "Condo",
-              ]}
-            ></DropDown>
-          </Grid>
-          <Grid item>
-            <Button sx={{ my: 5 }} variant="contained">
+            <Button sx={{ mt: 3 }} variant="contained">
               Search
             </Button>
           </Grid>

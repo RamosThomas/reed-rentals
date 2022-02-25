@@ -1,14 +1,23 @@
 import React from "react";
 
-import { ratingData } from "../utils/demoData";
-
 import { Box, Grid, Divider, Button, Paper, Typography } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
-
-import { UserRating } from "../utils/utilComponents";
 import { blue } from "@mui/material/colors";
 
-export default function Home() {
+import { UserRating, UserReview } from "../utils/utilComponents";
+import { ratingData } from "../utils/demoData";
+import { generateAlphaNumericId } from "../utils/utils";
+
+interface Props {
+  isMobile: boolean;
+  onPageChange: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Home(props: Props) {
+  const handlePageChange = React.useCallback((page: string) => {
+    props.onPageChange(page);
+  }, []);
+
   return (
     <Box sx={{ mx: 2, zIndex: 2, position: "relative" }}>
       <Box>
@@ -49,8 +58,17 @@ export default function Home() {
               <Box>
                 <Typography>
                   Find our
-                  <b style={{ color: blue[500] }}> Available Properties</b> by
-                  clicking the Search tab above to find your new home!
+                  <b
+                    style={{
+                      color: blue[500],
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handlePageChange("properties")}
+                  >
+                    {" "}
+                    Available Properties{" "}
+                  </b>
+                  by clicking the Search tab above to find your new home!
                 </Typography>
                 <br />
                 <Typography>
@@ -75,7 +93,7 @@ export default function Home() {
                   href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Freedcollegerentals.com%2F&partner=tfwp&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&text=About%20Us%20%7C%20Reed%20College%20Rentals&url=http%3A%2F%2Freedcollegerentals.com%2Fabout-us%2F&via=reedcollegerent"
                 >
                   <TwitterIcon sx={{ color: "#fff", mr: 1 }} />
-                  <Typography sx={{ color: "#fff" }} variant="h6">
+                  <Typography sx={{ color: "#fff" }} variant="subtitle1">
                     Follow us!
                   </Typography>
                 </Button>
@@ -88,10 +106,18 @@ export default function Home() {
       <Box sx={{ color: "#fff", my: 2, px: 5 }}>
         {ratingData.map(
           (params: { rating: number; name: string; description: string }) => (
-            <UserRating key={params.description} defaultStartValue={params} />
+            <UserRating
+              key={generateAlphaNumericId(15)}
+              defaultStartValue={{ isMobile: props.isMobile, ...params }}
+            />
           )
         )}
       </Box>
+      <Divider sx={{ bgcolor: "#fff", my: 5 }} />
+      <Typography variant="h5" sx={{ color: "#fff" }}>
+        Submit Feedback
+      </Typography>
+      <UserReview />
     </Box>
   );
 }

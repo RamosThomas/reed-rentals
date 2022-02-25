@@ -53,7 +53,7 @@ export default function MainContainer() {
         sx={{
           top: 10,
           width: "50%",
-          height: "100vh",
+          height: "110vh",
           overflowY: "hidden",
           opacity: 0.25,
           position: "fixed",
@@ -82,7 +82,7 @@ export default function MainContainer() {
       <Box sx={{ zIndex: 1, pt: 10 }}>
         {
           {
-            home: <Home />,
+            home: <Home isMobile={isMobile} onPageChange={setPage} />,
             properties: <AvailableProperties isMobile={isMobile} />,
           }[page]
         }

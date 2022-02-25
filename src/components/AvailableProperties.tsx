@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import { AvailablePropertyCards } from "../utils/utilComponents";
 import { availPropData } from "../utils/demoData";
@@ -18,14 +18,25 @@ export default function AvailableProperties(props: Props) {
         container
         spacing={3}
         direction="row"
-        justifyContent="space-between"
+        // justifyContent="space-between"
       >
-        <Grid item display={{ xs: "none", sm: "none", md: "block" }}>
-          <Paper sx={{ width: "50vw", height: "80vh", bgcolor: "#555" }}>
-            Map
-          </Paper>
+        <Grid
+          item
+          display={{ xs: "none", sm: "none", md: "block" }}
+          sx={{ width: { xs: "0", sm: "0", md: "50%" } }}
+        >
+          <Box
+            sx={{
+              top: "5rem",
+              height: "85vh",
+              bgcolor: "#242526",
+              position: "sticky",
+            }}
+          >
+            Google Map
+          </Box>
         </Grid>
-        <Grid item flexGrow={1}>
+        <Grid item flexGrow={1} sx={{ width: "50%" }}>
           {availPropData.map(
             (params: {
               img: string;

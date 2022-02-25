@@ -12,8 +12,10 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -33,6 +35,7 @@ import {
   Select,
   SelectChangeEvent,
   Slider as MuiSlider,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -50,7 +53,6 @@ interface Props {
 }
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-  my: -3,
   color: theme.palette.primary.main,
 }));
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
@@ -96,11 +98,11 @@ function Increment(props: Props) {
     [setNum]
   );
   return (
-    <Box sx={{ flexGrow: 1, display: "flex", m: 5 }}>
+    <Box sx={{ flexGrow: 1, display: "flex", mb: 5 }}>
       <IconButton onClick={() => handleChange(-1)}>
         <RemoveIcon sx={{ color: alpha("#fff", 0.5) }} />
       </IconButton>
-      <StyledTypography>
+      <StyledTypography sx={{ fontSize: "2rem", mx: 3 }}>
         <b>{num}</b>
       </StyledTypography>
       <IconButton onClick={() => handleChange(1)}>
@@ -118,10 +120,14 @@ function DropDown(props: Props) {
       const {
         target: { value },
       } = event;
+      console.log(value);
       setVal(typeof value === "string" ? value.split(",") : value);
     },
     [setVal]
   );
+  const handleDelete = React.useCallback((value: string) => {
+    setVal((prev) => prev.filter((val) => val !== value));
+  }, []);
   return (
     <Box
       sx={{
@@ -144,11 +150,18 @@ function DropDown(props: Props) {
                 borderColor: "#fff",
                 display: "flex",
                 flexWrap: "wrap",
-                gap: 0.5,
+                width: 300,
+                gap: 1,
               }}
             >
               {selected.map((value) => (
-                <Chip key={value} label={value} sx={{ bgcolor: blue[500] }} />
+                <Chip
+                  key={value}
+                  label={value}
+                  sx={{ bgcolor: blue[500], height: "75%" }}
+                  onDelete={() => handleDelete(value)}
+                  deleteIcon={<DeleteIcon />}
+                />
               ))}
             </Box>
           )}
@@ -160,6 +173,31 @@ function DropDown(props: Props) {
           ))}
         </Select>
       </FormControl>
+    </Box>
+  );
+}
+
+function UserReview() {
+  return (
+    <Box sx={{ color: "#fff", py: 5, px: 5 }}>
+      <Rating options={{ readOnly: false }} />
+      <TextField
+        variant="outlined"
+        fullWidth
+        multiline
+        placeholder="Leave review here..."
+        minRows={3}
+        maxRows={5}
+        sx={{
+          my: 1,
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: alpha("#fff", 0.5),
+          },
+        }}
+      ></TextField>
+      <Button variant="contained" sx={{ float: "right" }}>
+        Submit
+      </Button>
     </Box>
   );
 }
@@ -197,7 +235,7 @@ function Rating(props: Props) {
 }
 
 function UserRating(props: Props) {
-  const { rating, name, description } = props.defaultStartValue;
+  const { rating, name, description, isMobile } = props.defaultStartValue;
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
   const handleExpand = React.useCallback(
@@ -220,7 +258,7 @@ function UserRating(props: Props) {
             </Grid>
             <Grid item>
               <Box>
-                <Collapse in={expanded} collapsedSize="50px">
+                <Collapse in={expanded} collapsedSize={isMobile ? 75 : 100}>
                   <Typography key="description">{description}</Typography>
                 </Collapse>
                 <Typography
@@ -286,7 +324,6 @@ function AvailablePropertyCards(props: Props) {
       ? false
       : true;
   });
-  const collapsedSize: number = 50;
 
   const handleLiked = React.useCallback((title: string) => {
     setLiked((prev) => {
@@ -375,25 +412,37 @@ function AvailablePropertyCards(props: Props) {
                 my: 1,
               }}
             >
-              <Typography variant="subtitle2">
+              <Typography
+                sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" } }}
+              >
                 Price:
-                <b style={{ color: blue[500], float: "right" }}>$1000</b>
+                <b style={{ color: blue[500], float: "right" }}>
+                  {params.price}
+                </b>
               </Typography>
               <Divider sx={{ bgcolor: "#fff" }} />
-              <Typography variant="subtitle2">
+              <Typography
+                sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" } }}
+              >
                 Bed(s):
-                <b style={{ color: blue[500], float: "right" }}>3</b>
+                <b style={{ color: blue[500], float: "right" }}>
+                  {params.beds}
+                </b>
               </Typography>
               <Divider sx={{ bgcolor: "#fff" }} />
-              <Typography variant="subtitle2">
+              <Typography
+                sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" } }}
+              >
                 Bath:
-                <b style={{ color: blue[500], float: "right" }}>2</b>
+                <b style={{ color: blue[500], float: "right" }}>
+                  {params.bath}
+                </b>
               </Typography>
             </Box>
           </Grid>
           <Grid item sx={{ width: "50%" }}>
             <Typography variant="h6">Amenities</Typography>
-            <Collapse in={expanded} collapsedSize={collapsedSize}>
+            <Collapse in={expanded} collapsedSize={isMobile ? 75 : 100}>
               <List
                 dense={isMobile}
                 sx={{
@@ -411,7 +460,7 @@ function AvailablePropertyCards(props: Props) {
                 ))}
               </List>
             </Collapse>
-            <IconButton onClick={handleExpand}>
+            <IconButton sx={{ width: "100%" }} onClick={handleExpand}>
               {expanded ? (
                 <ArrowDropUpIcon sx={{ color: "#fff", alignSelf: "right" }} />
               ) : (
@@ -503,4 +552,5 @@ export {
   Rating,
   Slider,
   UserRating,
+  UserReview,
 };
