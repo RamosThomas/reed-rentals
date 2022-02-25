@@ -83,7 +83,7 @@ export default function MainContainer() {
         {
           {
             home: <Home />,
-            properties: <AvailableProperties />,
+            properties: <AvailableProperties isMobile={isMobile} />,
           }[page]
         }
       </Box>

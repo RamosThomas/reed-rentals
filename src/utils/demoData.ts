@@ -124,4 +124,64 @@ const ratingData: { rating: number; name: string; description: string }[] = [
   },
 ];
 
-export { itemData, ratingData };
+const availPropData = [
+  {
+    img: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+    amentities: [
+      { primary: "In-Unit Washer/Dryer" },
+      { primary: "Patio" },
+      { primary: "Bike Racks" },
+      { primary: "Covered Parking" },
+      { primary: "Close to Campus" },
+      { primary: "Outdoor Area" },
+      { primary: "Private Outdoor Area" },
+      { primary: "Air-Conditioning" },
+      { primary: "Heat" },
+      { primary: "Laundry Facility" },
+      { primary: "Utilities Included" },
+    ],
+    title: "The Demo Home",
+    address: "1234 W 12th Street, Greeley, Co",
+    availability: "unavailable",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
+    amentities: [
+      { primary: "In-Unit Washer/Dryer" },
+      { primary: "Patio" },
+      { primary: "Bike Racks" },
+      { primary: "Covered Parking" },
+      { primary: "Close to Campus" },
+      { primary: "Outdoor Area" },
+      { primary: "Private Outdoor Area" },
+      { primary: "Air-Conditioning" },
+      { primary: "Heat" },
+      { primary: "Laundry Facility" },
+      { primary: "Utilities Included" },
+    ],
+    title: "The Second Demo Home",
+    address: "1234 W 12th Street, Greeley, Co",
+    availability: "available",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
+    amentities: [
+      { primary: "In-Unit Washer/Dryer" },
+      { primary: "Patio" },
+      { primary: "Bike Racks" },
+      { primary: "Covered Parking" },
+      { primary: "Close to Campus" },
+      { primary: "Outdoor Area" },
+      { primary: "Private Outdoor Area" },
+      { primary: "Air-Conditioning" },
+      { primary: "Heat" },
+      { primary: "Laundry Facility" },
+      { primary: "Utilities Included" },
+    ],
+    title: "The Third Demo Home",
+    address: "1234 W 12th Street, Greeley, Co",
+    availability: "undetermined",
+  },
+];
+
+export { availPropData, itemData, ratingData };

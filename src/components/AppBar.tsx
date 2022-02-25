@@ -112,7 +112,10 @@ export default function AppBar(props: Props) {
                 }}
               >
                 <MenuItem>
-                  <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+                  <Typography
+                    sx={{ flexGrow: 1, textAlign: "center" }}
+                    onClick={() => handlePageChange("properties")}
+                  >
                     Available Properties
                   </Typography>
                 </MenuItem>
