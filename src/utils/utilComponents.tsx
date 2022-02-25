@@ -120,14 +120,13 @@ function DropDown(props: Props) {
       const {
         target: { value },
       } = event;
-      console.log(value);
       setVal(typeof value === "string" ? value.split(",") : value);
     },
     [setVal]
   );
-  const handleDelete = React.useCallback((value: string) => {
-    setVal((prev) => prev.filter((val) => val !== value));
-  }, []);
+  // const handleDelete = React.useCallback((value: string) => {
+  //   setVal((prev) => prev.filter((val) => val !== value));
+  // }, []);
   return (
     <Box
       sx={{
@@ -159,7 +158,7 @@ function DropDown(props: Props) {
                   key={value}
                   label={value}
                   sx={{ bgcolor: blue[500], height: "75%" }}
-                  onDelete={() => handleDelete(value)}
+                  // onDelete={() => handleDelete(value)}
                   deleteIcon={<DeleteIcon />}
                 />
               ))}
