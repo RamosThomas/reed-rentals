@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/reed-rentals/static/css/main.1a3653fc.css",
-    "main.js": "/reed-rentals/static/js/main.e3039558.js",
+    "main.css": "/reed-rentals/static/css/main.f525c129.css",
+    "main.js": "/reed-rentals/static/js/main.fcac031e.js",
     "static/js/787.63474b09.chunk.js": "/reed-rentals/static/js/787.63474b09.chunk.js",
     "static/media/logo.png": "/reed-rentals/static/media/logo.71c2cfc5c2644fe7722b.png",
     "index.html": "/reed-rentals/index.html",
-    "main.1a3653fc.css.map": "/reed-rentals/static/css/main.1a3653fc.css.map",
-    "main.e3039558.js.map": "/reed-rentals/static/js/main.e3039558.js.map",
+    "main.f525c129.css.map": "/reed-rentals/static/css/main.f525c129.css.map",
+    "main.fcac031e.js.map": "/reed-rentals/static/js/main.fcac031e.js.map",
     "787.63474b09.chunk.js.map": "/reed-rentals/static/js/787.63474b09.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a3653fc.css",
-    "static/js/main.e3039558.js"
+    "static/css/main.f525c129.css",
+    "static/js/main.fcac031e.js"
   ]
 }
