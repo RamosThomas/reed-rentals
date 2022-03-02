@@ -8,10 +8,12 @@ import {
   AppBar as MUIAppBar,
   Box,
   Button,
+  Collapse,
+  Divider,
   IconButton,
   InputBase,
-  Menu,
-  MenuItem,
+  // Menu,
+  // MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -64,23 +66,15 @@ interface Props {
 }
 
 export default function AppBar(props: Props) {
-  const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [open, setOpen] = React.useState<boolean>(false);
 
-  const open = Boolean(anchorElement);
-  const handleDropDownForMobileView = React.useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorElement((prev) => (prev === null ? event.currentTarget : null));
-    },
-    []
-  );
-  const handleClose = React.useCallback(() => {
-    setAnchorElement(null);
-  }, []);
-  const handlePageChange = React.useCallback((page: string) => {
+  const handleDropDownForMobileView = () => {
+    setOpen((prev) => !prev);
+  };
+  const handlePageChange = (page: string) => {
+    handleDropDownForMobileView();
     props.onPageChange(page);
-  }, []);
+  };
 
   return (
     <Box
@@ -99,33 +93,6 @@ export default function AppBar(props: Props) {
               edge="start"
               color="inherit"
             >
-              <Menu
-                anchorEl={anchorElement}
-                open={open}
-                onClose={handleClose}
-                sx={{
-                  "& .MuiPaper-root": {
-                    bgcolor: "#24252e",
-                    width: "100vw",
-                    border: "solid 1px #000",
-                  },
-                  color: "inherit",
-                }}
-              >
-                <MenuItem>
-                  <Typography
-                    sx={{ flexGrow: 1, textAlign: "center" }}
-                    onClick={() => handlePageChange("properties")}
-                  >
-                    Available Properties
-                  </Typography>
-                </MenuItem>
-                <MenuItem>
-                  <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
-                    FAQ
-                  </Typography>
-                </MenuItem>
-              </Menu>
               <MenuIcon />
             </IconButton>
           ) : null}
@@ -161,6 +128,30 @@ export default function AppBar(props: Props) {
             </StyledButton>
           </Box>
         </Toolbar>
+        <Collapse in={open} collapsedSize={0}>
+          <Divider sx={{ bgcolor: "#fff", mx: 5 }} />
+          <Button
+            sx={{ flexGrow: 1, textAlign: "center", py: 1, color: "#fff" }}
+            fullWidth
+            onClick={() => handlePageChange("home")}
+          >
+            Home
+          </Button>
+          <Button
+            sx={{ flexGrow: 1, textAlign: "center", py: 1, color: "#fff" }}
+            fullWidth
+            onClick={() => handlePageChange("properties")}
+          >
+            Available Properties
+          </Button>
+          <Button
+            fullWidth
+            sx={{ flexGrow: 1, textAlign: "center", py: 1, color: "#fff" }}
+            // onClick={() => handlePageChange("faq")}
+          >
+            FAQ
+          </Button>
+        </Collapse>
       </MUIAppBar>
     </Box>
   );
