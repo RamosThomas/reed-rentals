@@ -70,7 +70,6 @@ export default function AppBar(props: Props) {
     setOpen((prev) => !prev);
   };
   const handlePageChange = (page: string) => {
-    handleDropDownForMobileView();
     props.onPageChange(page);
   };
 
@@ -131,21 +130,27 @@ export default function AppBar(props: Props) {
           <Button
             sx={{ flexGrow: 1, textAlign: "center", py: 1, color: "#fff" }}
             fullWidth
-            onClick={() => handlePageChange("home")}
+            onClick={() => {
+              handleDropDownForMobileView();
+              handlePageChange("home");
+            }}
           >
             Home
           </Button>
           <Button
             sx={{ flexGrow: 1, textAlign: "center", py: 1, color: "#fff" }}
             fullWidth
-            onClick={() => handlePageChange("properties")}
+            onClick={() => {
+              handleDropDownForMobileView();
+              handlePageChange("properties");
+            }}
           >
             Available Properties
           </Button>
           <Button
             fullWidth
             sx={{ flexGrow: 1, textAlign: "center", py: 1, color: "#fff" }}
-            // onClick={() => handlePageChange("faq")}
+            onClick={handleDropDownForMobileView}
           >
             FAQ
           </Button>
