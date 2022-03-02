@@ -386,154 +386,175 @@ function AvailablePropertyCards(props: Props) {
           </IconButton>
         }
       />
-      <Box sx={{ width: "100%", height: { xs: 500, sm: 600, md: 500 } }}>
-        <CardMedia
-          component="img"
-          width="100%"
-          height="100%"
-          image={params.img}
-          alt="Home"
-        />
-      </Box>
-      <CardContent>
-        <Grid
-          container
-          spacing={3}
-          direction="row"
-          justifyContent="space-between"
+      <Box
+        sx={{
+          display: { xs: "", sm: "", md: "flex" },
+          flexDirection: { xs: "row", sm: "row", md: "flex" },
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: { xs: 500, sm: 600, md: 500 },
+          }}
         >
-          <Grid item sx={{ width: "100%" }}>
-            <Typography variant="h6">Details</Typography>
-            <Box
-              sx={{
-                ml: "15%",
-                mr: "15%",
-                my: 1,
-              }}
-            >
-              <Typography
-                sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" } }}
-              >
-                Price:
-                <b style={{ color: blue[500], float: "right" }}>
-                  {params.price}
-                </b>
-              </Typography>
-              <Divider sx={{ bgcolor: "#fff" }} />
-              <Typography
-                sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" } }}
-              >
-                Bed(s):
-                <b style={{ color: blue[500], float: "right" }}>
-                  {params.beds}
-                </b>
-              </Typography>
-              <Divider sx={{ bgcolor: "#fff" }} />
-              <Typography
-                sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" } }}
-              >
-                Bath:
-                <b style={{ color: blue[500], float: "right" }}>
-                  {params.bath}
-                </b>
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item sx={{ width: "50%" }}>
-            <Typography variant="h6">Amenities</Typography>
-            <Collapse in={expanded} collapsedSize={isMobile ? 75 : 100}>
-              <List
-                dense={isMobile}
-                sx={{
-                  borderRight: "1px solid #fff",
-                }}
-              >
-                {params.amentities.map((amenityParams: Amenities) => (
-                  <ListItem key={getAlphaNumericId()}>
-                    <ListItemText
-                      primary={amenityParams.primary}
-                      secondary={amenityParams.secondary}
-                      secondaryTypographyProps={{ color: blue[500] }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
-            <IconButton sx={{ width: "100%" }} onClick={handleExpand}>
-              {expanded ? (
-                <ArrowDropUpIcon sx={{ color: "#fff", alignSelf: "right" }} />
-              ) : (
-                <ArrowDropDownIcon sx={{ color: "#fff", alignSelf: "right" }} />
-              )}
-            </IconButton>
-          </Grid>
-          <Grid item sx={{ width: "50%" }}>
-            <Tooltip
-              title={
-                <>
-                  <p>
-                    <b style={{ color: green[500] }}>Green</b> checkmark means
-                    the home is available for lease
-                  </p>
-                  <p>
-                    <b style={{ color: blue[500] }}>Blue</b> undetermined mark
-                    means someone has inquired, but not signed a lease
-                  </p>
-                  <p>
-                    <b style={{ color: red[500] }}>Red</b> prohibition mark
-                    means the home is not available for lease
-                  </p>
-                </>
-              }
-              enterTouchDelay={0}
-              leaveTouchDelay={4000}
-            >
+          <CardMedia
+            component="img"
+            width="100%"
+            height="100%"
+            image={params.img}
+            alt="Home"
+          />
+        </Box>
+
+        <CardContent>
+          <Grid
+            container
+            spacing={3}
+            direction="row"
+            justifyContent="space-between"
+          >
+            <Grid item sx={{ width: "100%" }}>
+              <Typography variant="h6">Details</Typography>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
+                  ml: "15%",
+                  mr: "15%",
+                  my: 1,
                 }}
               >
-                <Typography variant="h6" sx={{ pb: 2 }}>
-                  Availability
+                <Typography
+                  sx={{
+                    fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" },
+                  }}
+                >
+                  Price:
+                  <b style={{ color: blue[500], float: "right" }}>
+                    {params.price}
+                  </b>
                 </Typography>
-                {
-                  {
-                    available: (
-                      <CheckCircleOutlineIcon
-                        sx={{
-                          color: green[500],
-                          fontSize: 35,
-                          width: "100%",
-                        }}
-                      />
-                    ),
-                    undetermined: (
-                      <IndeterminateCheckBoxIcon
-                        sx={{
-                          color: blue[500],
-                          fontSize: 35,
-                          width: "100%",
-                        }}
-                      />
-                    ),
-                    unavailable: (
-                      <DoNotDisturbIcon
-                        sx={{
-                          color: red[500],
-                          fontSize: 35,
-                          width: "100%",
-                        }}
-                      />
-                    ),
-                  }[params.availability]
-                }
+                <Divider sx={{ bgcolor: "#fff" }} />
+                <Typography
+                  sx={{
+                    fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" },
+                  }}
+                >
+                  Bed(s):
+                  <b style={{ color: blue[500], float: "right" }}>
+                    {params.beds}
+                  </b>
+                </Typography>
+                <Divider sx={{ bgcolor: "#fff" }} />
+                <Typography
+                  sx={{
+                    fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.5rem" },
+                  }}
+                >
+                  Bath:
+                  <b style={{ color: blue[500], float: "right" }}>
+                    {params.bath}
+                  </b>
+                </Typography>
               </Box>
-            </Tooltip>
+            </Grid>
+            <Grid item sx={{ width: "50%" }}>
+              <Typography variant="h6">Amenities</Typography>
+              <Collapse in={expanded} collapsedSize={isMobile ? 75 : 200}>
+                <List
+                  dense={isMobile}
+                  sx={{
+                    borderRight: "1px solid #fff",
+                  }}
+                >
+                  {params.amentities.map((amenityParams: Amenities) => (
+                    <ListItem key={getAlphaNumericId()}>
+                      <ListItemText
+                        primary={amenityParams.primary}
+                        secondary={amenityParams.secondary}
+                        secondaryTypographyProps={{ color: blue[500] }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+              <IconButton sx={{ width: "100%" }} onClick={handleExpand}>
+                {expanded ? (
+                  <ArrowDropUpIcon sx={{ color: "#fff", alignSelf: "right" }} />
+                ) : (
+                  <ArrowDropDownIcon
+                    sx={{ color: "#fff", alignSelf: "right" }}
+                  />
+                )}
+              </IconButton>
+            </Grid>
+            <Grid item sx={{ width: "50%" }}>
+              <Tooltip
+                title={
+                  <>
+                    <p>
+                      <b style={{ color: green[500] }}>Green</b> checkmark means
+                      the home is available for lease
+                    </p>
+                    <p>
+                      <b style={{ color: blue[500] }}>Blue</b> undetermined mark
+                      means someone has inquired, but not signed a lease
+                    </p>
+                    <p>
+                      <b style={{ color: red[500] }}>Red</b> prohibition mark
+                      means the home is not available for lease
+                    </p>
+                  </>
+                }
+                enterTouchDelay={0}
+                leaveTouchDelay={4000}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="h6" sx={{ pb: 2 }}>
+                    Availability
+                  </Typography>
+                  {
+                    {
+                      available: (
+                        <CheckCircleOutlineIcon
+                          sx={{
+                            color: green[500],
+                            fontSize: 35,
+                            width: "100%",
+                          }}
+                        />
+                      ),
+                      undetermined: (
+                        <IndeterminateCheckBoxIcon
+                          sx={{
+                            color: blue[500],
+                            fontSize: 35,
+                            width: "100%",
+                          }}
+                        />
+                      ),
+                      unavailable: (
+                        <DoNotDisturbIcon
+                          sx={{
+                            color: red[500],
+                            fontSize: 35,
+                            width: "100%",
+                          }}
+                        />
+                      ),
+                    }[params.availability]
+                  }
+                </Box>
+              </Tooltip>
+            </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
+        </CardContent>
+      </Box>
     </Card>
   );
 }

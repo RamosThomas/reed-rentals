@@ -23,7 +23,7 @@ export default function AvailableProperties(props: Props) {
         <Grid
           item
           display={{ xs: "none", sm: "none", md: "block" }}
-          sx={{ width: { xs: "0", sm: "0", md: "50%" } }}
+          sx={{ width: { xs: "0", sm: "0", md: "30%", lg: "50%" } }}
         >
           <Box
             sx={{
@@ -36,7 +36,11 @@ export default function AvailableProperties(props: Props) {
             Google Maps
           </Box>
         </Grid>
-        <Grid item flexGrow={1} sx={{ width: "50%" }}>
+        <Grid
+          item
+          flexGrow={1}
+          sx={{ width: { xs: "50%", sm: "50%", md: "70%", lg: "50%" } }}
+        >
           {availPropData.map(
             (params: {
               img: string;

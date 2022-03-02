@@ -4,6 +4,7 @@ import { Box, Grid, Divider, Button, Paper, Typography } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { blue } from "@mui/material/colors";
 
+import About from "./About";
 import { UserRating, UserReview } from "../utils/utilComponents";
 import { ratingData } from "../utils/demoData";
 import { generateAlphaNumericId } from "../utils/utils";
@@ -102,6 +103,12 @@ export default function Home(props: Props) {
           </Grid>
         </Grid>
       </Box>
+      {props.isMobile ? (
+        <>
+          <Divider sx={{ bgcolor: "#fff", my: 5 }} />
+          <About />
+        </>
+      ) : null}
       <Divider sx={{ bgcolor: "#fff", my: 5 }} />
       <Box sx={{ color: "#fff", my: 2, px: 5 }}>
         {ratingData.map(
@@ -114,7 +121,13 @@ export default function Home(props: Props) {
         )}
       </Box>
       <Divider sx={{ bgcolor: "#fff", my: 5 }} />
-      <Typography variant="h5" sx={{ color: "#fff" }}>
+      <Typography
+        variant="h5"
+        sx={{
+          color: "#fff",
+          textAlign: { xs: "center", sm: "center", md: "left" },
+        }}
+      >
         Submit Feedback
       </Typography>
       <UserReview />
