@@ -179,7 +179,20 @@ function DropDown(props: Props) {
 function UserReview() {
   return (
     <Box sx={{ color: "#fff", py: 5, px: 5 }}>
-      <Rating options={{ readOnly: false }} />
+      <Rating defaultStartValue={0} options={{ readOnly: false }} />
+      <TextField
+        variant="outlined"
+        fullWidth
+        placeholder="Enter name..."
+        minRows={1}
+        maxRows={1}
+        sx={{
+          my: 1,
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: alpha("#fff", 0.5),
+          },
+        }}
+      ></TextField>
       <TextField
         variant="outlined"
         fullWidth
@@ -243,36 +256,36 @@ function UserRating(props: Props) {
   );
 
   return (
-    <Box sx={{ display: "flex", py: 2 }} alignItems="flex-start">
-      <AccountCircleIcon fontSize="large" sx={{ pr: 2 }} />
-      <Grid container spacing={3}>
-        <Grid item>
-          <Grid container direction="column" spacing={1}>
-            <Grid item>{name}</Grid>
-            <Grid item>
-              <Rating
-                defaultStartValue={rating}
-                options={{ readOnly: true, date: "Last week" }}
-              />
-            </Grid>
-            <Grid item>
-              <Box>
-                <Collapse in={expanded} collapsedSize={isMobile ? 75 : 100}>
-                  <Typography key="description">{description}</Typography>
-                </Collapse>
-                <Typography
-                  textAlign="right"
-                  onClick={handleExpand}
-                  sx={{ color: blue[500], cursor: "pointer" }}
-                >
-                  {expanded ? "...Less" : "...More"}
-                </Typography>
-              </Box>
+    <>
+      <Box sx={{ display: "flex", py: 2 }} alignItems="flex-start">
+        <AccountCircleIcon fontSize="large" sx={{ pr: 2 }} />
+        <Grid container spacing={3}>
+          <Grid item>
+            <Grid container direction="column" spacing={1}>
+              <Grid item>{name}</Grid>
+              <Grid item>
+                <Rating
+                  defaultStartValue={rating}
+                  options={{ readOnly: true, date: "Last week" }}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+      <Box sx={{ width: "100%" }}>
+        <Collapse in={expanded} collapsedSize={isMobile ? 75 : 100}>
+          <Typography key="description">{description}</Typography>
+        </Collapse>
+        <Typography
+          textAlign="right"
+          onClick={handleExpand}
+          sx={{ color: blue[500], cursor: "pointer" }}
+        >
+          {expanded ? "...Less" : "...More"}
+        </Typography>
+      </Box>
+    </>
   );
 }
 
