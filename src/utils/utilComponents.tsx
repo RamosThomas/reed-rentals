@@ -13,6 +13,8 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {
   Box,
   Button,
@@ -407,8 +409,10 @@ function AvailablePropertyCards(props: Props) {
       >
         <Box
           sx={{
+            position: "relative",
             width: "100%",
             height: { xs: 500, sm: 600, md: 500 },
+            cursor: "pointer",
           }}
         >
           <CardMedia
@@ -417,6 +421,39 @@ function AvailablePropertyCards(props: Props) {
             height="100%"
             image={params.img}
             alt="Home"
+          />
+          <ArrowBackIosNewIcon
+            sx={{
+              position: "absolute",
+              top: 0,
+              pr: "40%",
+              height: "100%",
+              width: "10%",
+              color: "#777",
+              opacity: 0,
+              transition: "0.3s",
+              ":hover": {
+                opacity: 1,
+              },
+            }}
+            onClick={() => console.log("left")}
+          />
+          <ArrowForwardIosIcon
+            sx={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              pl: "40%",
+              height: "100%",
+              width: "10%",
+              color: "#777",
+              opacity: 0,
+              transition: "0.3s",
+              ":hover": {
+                opacity: 1,
+              },
+            }}
+            onClick={() => console.log("right")}
           />
         </Box>
 

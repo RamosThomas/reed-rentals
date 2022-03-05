@@ -13,7 +13,7 @@ interface Props {
 
 export default function AvailableProperties(props: Props) {
   return (
-    <Box sx={{ position: "relative", color: "#fff", p: 2 }}>
+    <Box sx={{ position: "relative", color: "#fff", px: 3 }}>
       <Grid
         container
         spacing={3}
