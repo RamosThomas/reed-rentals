@@ -8,10 +8,10 @@ import {
   AppBar as MUIAppBar,
   Box,
   Button,
-  Collapse,
   Divider,
   IconButton,
   InputBase,
+  SwipeableDrawer,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -125,10 +125,25 @@ export default function AppBar(props: Props) {
             </StyledButton>
           </Box>
         </Toolbar>
-        <Collapse in={open} collapsedSize={0}>
+        <SwipeableDrawer
+          open={open}
+          sx={{
+            "& .MuiPaper-root": {
+              background: "#24252e",
+            },
+          }}
+          anchor="bottom"
+          onOpen={handleDropDownForMobileView}
+          onClose={handleDropDownForMobileView}
+        >
           <Divider sx={{ bgcolor: "#fff", mx: 5 }} />
           <Button
-            sx={{ flexGrow: 1, textAlign: "center", py: 1, color: "#fff" }}
+            sx={{
+              flexGrow: 1,
+              textAlign: "center",
+              py: 1,
+              color: "#fff",
+            }}
             fullWidth
             onClick={() => {
               handleDropDownForMobileView();
@@ -154,7 +169,7 @@ export default function AppBar(props: Props) {
           >
             FAQ
           </Button>
-        </Collapse>
+        </SwipeableDrawer>
       </MUIAppBar>
     </Box>
   );
