@@ -126,7 +126,11 @@ const ratingData: { rating: number; name: string; description: string }[] = [
 
 const availPropData = [
   {
-    img: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+    img: [
+      "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+      "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
+      "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
+    ],
     amentities: [
       { primary: "In-Unit Washer/Dryer" },
       { primary: "Patio" },
@@ -143,7 +147,11 @@ const availPropData = [
     bath: 2.5,
   },
   {
-    img: "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
+    img: [
+      "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
+      "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+      "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
+    ],
     amentities: [
       { primary: "Covered Parking" },
       { primary: "Close to Campus" },
@@ -162,7 +170,11 @@ const availPropData = [
     bath: 1,
   },
   {
-    img: "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
+    img: [
+      "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
+      "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
+      "https://images.unsplash.com/photo-1549388604-817d15aa0110",
+    ],
     amentities: [
       { primary: "In-Unit Washer/Dryer" },
       { primary: "Patio" },

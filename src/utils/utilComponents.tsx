@@ -15,6 +15,7 @@ import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Box,
   Button,
@@ -326,6 +327,7 @@ function AvailablePropertyCards(props: Props) {
   const { isMobile, data: params }: AvailablePropertyCardType =
     props.defaultStartValue;
   const [expanded, setExpanded] = React.useState<boolean>(false);
+  const [imageNum, setImageNum] = React.useState<number>(0);
   const [liked, setLiked] = React.useState<boolean>((): boolean => {
     if (document.cookie === undefined) {
       return false;
@@ -361,6 +363,23 @@ function AvailablePropertyCards(props: Props) {
     () => setExpanded((prev) => !prev),
     []
   );
+  const handleImageChange = (forward: boolean = true) => {
+    setImageNum((prev: number) => {
+      if (forward) {
+        if (params.img.length - 1 === prev) {
+          return 0;
+        } else {
+          return prev + 1;
+        }
+      } else {
+        if (prev === 0) {
+          return params.img.length - 1;
+        } else {
+          return prev - 1;
+        }
+      }
+    });
+  };
   const getAlphaNumericId = () => {
     const id = generateAlphaNumericId(15);
     return id;
@@ -370,7 +389,7 @@ function AvailablePropertyCards(props: Props) {
     <Card
       sx={{
         minWidth: 345,
-        my: 1,
+        m: 3,
         bgcolor: "#24252e",
         "& .MuiCardHeader-subheader": { color: alpha("#fff", 0.5) },
       }}
@@ -379,39 +398,44 @@ function AvailablePropertyCards(props: Props) {
         title={params.title}
         subheader={params.address}
         action={
-          <IconButton
-            sx={{ color: red[500] }}
-            onClick={() => handleLiked(params.title)}
-          >
-            {liked ? (
-              <FavoriteIcon
-                sx={{
-                  color: red[500],
-                  fontSize: 35,
-                }}
-              />
-            ) : (
-              <FavoriteBorderIcon
-                sx={{
-                  color: red[500],
-                  fontSize: 35,
-                }}
-              />
-            )}
-          </IconButton>
+          <>
+            <IconButton
+              sx={{ color: red[500] }}
+              onClick={() => handleLiked(params.title)}
+            >
+              {liked ? (
+                <FavoriteIcon
+                  sx={{
+                    color: red[500],
+                    fontSize: 35,
+                  }}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  sx={{
+                    color: red[500],
+                    fontSize: 35,
+                  }}
+                />
+              )}
+            </IconButton>
+            <IconButton sx={{ color: "#fff" }}>
+              <MoreVertIcon />
+            </IconButton>
+          </>
         }
       />
       <Box
         sx={{
-          display: { xs: "", sm: "", md: "flex" },
-          flexDirection: { xs: "row", sm: "row", md: "flex" },
+          display: { xs: "", sm: "flex", md: "flex" },
+          flexDirection: { xs: "row", sm: "flex", md: "flex" },
         }}
       >
         <Box
           sx={{
             position: "relative",
             width: "100%",
-            height: { xs: 500, sm: 600, md: 500 },
+            height: { xs: 400, sm: 400, md: 500 },
             cursor: "pointer",
           }}
         >
@@ -419,7 +443,7 @@ function AvailablePropertyCards(props: Props) {
             component="img"
             width="100%"
             height="100%"
-            image={params.img}
+            image={params.img[imageNum]}
             alt="Home"
           />
           <ArrowBackIosNewIcon
@@ -430,13 +454,13 @@ function AvailablePropertyCards(props: Props) {
               height: "100%",
               width: "10%",
               color: "#777",
-              opacity: 0,
+              opacity: { xs: 1, sm: 1, md: 0 },
               transition: "0.3s",
               ":hover": {
-                opacity: 1,
+                opacity: { xs: 1, sm: 1, md: 1 },
               },
             }}
-            onClick={() => console.log("left")}
+            onClick={() => handleImageChange(false)}
           />
           <ArrowForwardIosIcon
             sx={{
@@ -447,13 +471,13 @@ function AvailablePropertyCards(props: Props) {
               height: "100%",
               width: "10%",
               color: "#777",
-              opacity: 0,
+              opacity: { xs: 1, sm: 1, md: 0 },
               transition: "0.3s",
               ":hover": {
-                opacity: 1,
+                opacity: { xs: 1, sm: 1, md: 1 },
               },
             }}
-            onClick={() => console.log("right")}
+            onClick={() => handleImageChange(true)}
           />
         </Box>
 
@@ -509,7 +533,7 @@ function AvailablePropertyCards(props: Props) {
             </Grid>
             <Grid item sx={{ width: "50%" }}>
               <Typography variant="h6">Amenities</Typography>
-              <Collapse in={expanded} collapsedSize={isMobile ? 75 : 200}>
+              <Collapse in={expanded} collapsedSize={isMobile ? 175 : 200}>
                 <List
                   dense={isMobile}
                   sx={{
