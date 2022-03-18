@@ -110,7 +110,7 @@ export default function Home(props: Props) {
         </>
       ) : null}
       <Divider sx={{ bgcolor: "#fff", my: 5 }} />
-      <Box sx={{ color: "#fff", my: 2, px: 5 }}>
+      <Box sx={{ color: "#fff", my: 2, px: { xs: 1, sm: 3, md: 5 } }}>
         {ratingData.map(
           (params: { rating: number; name: string; description: string }) => (
             <UserRating

@@ -34,7 +34,7 @@ export default function SearchPropertiesModal(props: Props) {
         justifyContent: "center",
       }}
     >
-      <Box>
+      <Box sx={{ maxHeight: "100%", overflowY: "hidden" }}>
         <IconButton onClick={handleCloseModal} sx={{ position: "fixed" }}>
           <CloseIcon sx={{ color: "#fff" }} />
         </IconButton>

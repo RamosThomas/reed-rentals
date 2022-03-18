@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Grid } from "@mui/material";
 
-import { AvailablePropertyCards } from "../utils/utilComponents";
+import { AvailablePropertyCards, FilterMenu } from "../utils/utilComponents";
 import { availPropData } from "../utils/demoData";
 
 import { generateAlphaNumericId } from "../utils/utils";
@@ -14,15 +14,16 @@ interface Props {
 export default function AvailableProperties(props: Props) {
   return (
     <Box sx={{ position: "relative", color: "#fff" }}>
+      <FilterMenu
+        defaultStartValue={{ home: true, room: true, bath: true, rent: true }}
+      />
       <Grid
         container
-        spacing={3}
         direction="row"
         // justifyContent="space-between"
       >
         <Grid
           item
-          flexGrow={1}
           sx={{
             width: { xs: "100%", sm: "100%", md: "70%", lg: "50%" },
           }}

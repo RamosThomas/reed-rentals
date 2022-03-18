@@ -16,6 +16,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import BedIcon from "@mui/icons-material/Bed";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import PaidIcon from "@mui/icons-material/Paid";
+import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
 import {
   Box,
   Button,
@@ -115,6 +119,81 @@ function Increment(props: Props) {
   );
 }
 
+function FilterMenu(props: Props) {
+  const { home, room, bath, rent } = props.defaultStartValue;
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        borderTop: `solid 1px ${blue[500]}`,
+        borderBottom: `solid 1px ${blue[500]}`,
+        bgcolor: "#24252e",
+      }}
+    >
+      {/* <Typography sx={{ color: "#fff", fontWeight: "bold" }}>
+        Filters:
+      </Typography> */}
+      <Box
+        sx={{
+          width: "100%",
+          top: 0,
+          display: "flex",
+          py: 1,
+        }}
+      >
+        <Box
+          sx={{
+            height: "100%",
+            flexGrow: 1,
+            display: rent ? "flex" : "none",
+            px: 1,
+          }}
+        >
+          <PaidIcon sx={{ flexGrow: 1 }} />
+          <Typography sx={{ color: blue[500], flexGrow: 1 }}>
+            $1000 - $2000
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            height: "100%",
+            flexGrow: 1,
+            display: home ? "flex" : "none",
+            px: 1,
+          }}
+        >
+          <HolidayVillageIcon sx={{ flexGrow: 1 }} />
+          <Typography sx={{ color: blue[500], flexGrow: 1 }}>
+            Condo, Apartment, House
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            height: "100%",
+            flexGrow: 1,
+            display: room ? "flex" : "none",
+            px: 1,
+          }}
+        >
+          <BedIcon sx={{ flexGrow: 1 }} />
+          <Typography sx={{ color: blue[500], flexGrow: 1 }}>1</Typography>
+        </Box>
+        <Box
+          sx={{
+            height: "100%",
+            flexGrow: 1,
+            display: bath ? "flex" : "none",
+            px: 1,
+          }}
+        >
+          <BathtubIcon sx={{ flexGrow: 1 }} />
+          <Typography sx={{ color: blue[500], flexGrow: 1 }}>1</Typography>
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
 function DropDown(props: Props) {
   const [val, setVal] = React.useState<string[]>([]);
 
@@ -152,7 +231,7 @@ function DropDown(props: Props) {
                 borderColor: "#fff",
                 display: "flex",
                 flexWrap: "wrap",
-                width: 300,
+                maxWidth: "100%",
                 gap: 1,
               }}
             >
@@ -181,7 +260,7 @@ function DropDown(props: Props) {
 
 function UserReview() {
   return (
-    <Box sx={{ color: "#fff", py: 5, px: 5 }}>
+    <Box sx={{ color: "#fff", py: 5, px: { xs: 1, sm: 3, md: 5 } }}>
       <Rating defaultStartValue={0} options={{ readOnly: false }} />
       <TextField
         variant="outlined"
@@ -389,7 +468,8 @@ function AvailablePropertyCards(props: Props) {
     <Card
       sx={{
         minWidth: 345,
-        m: 3,
+        my: 3,
+        mx: { xs: 0, sm: 3 },
         bgcolor: "#24252e",
         "& .MuiCardHeader-subheader": { color: alpha("#fff", 0.5) },
       }}
@@ -640,6 +720,7 @@ function Radio(_props: Props) {
 export {
   AvailablePropertyCards,
   DropDown,
+  FilterMenu,
   Increment,
   PersistentTooltip,
   Radio,

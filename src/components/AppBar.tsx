@@ -10,7 +10,6 @@ import {
   Button,
   Divider,
   IconButton,
-  InputBase,
   SwipeableDrawer,
   Toolbar,
   Typography,
@@ -42,14 +41,13 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(Box)(({ theme }) => ({
   color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: "0.25s",
-    width: 0,
-  },
+  padding: theme.spacing(4, 1, 1, 0),
+  paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+  transition: "0.25s",
+  width: 0,
+  height: "100%",
 }));
 const StyledButton = styled(Button)(({ theme }) => ({
   flexGrow: 1,

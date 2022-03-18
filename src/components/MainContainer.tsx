@@ -13,6 +13,7 @@ import AppBar from "./AppBar";
 import AvailableProperties from "./AvailableProperties";
 import Home from "./Home";
 import SearchPropertiesModal from "./SearchPropertiesModal";
+import Footer from "./Footer";
 
 const theme = createTheme({
   palette: {
@@ -87,19 +88,7 @@ export default function MainContainer() {
           }[page]
         }
       </Box>
-      <Box
-        sx={{
-          position: "relative",
-          // py: 1,
-          width: "100%",
-          bottom: "0px",
-          // backgroundColor: "#000",
-          color: "#fff",
-          zIndex: 50,
-        }}
-      >
-        Footer
-      </Box>
+      <Footer />
     </ThemeProvider>
   );
 }
